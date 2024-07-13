@@ -1,8 +1,7 @@
-#video.py
-
 import subprocess
 import logging
 from tqdm import tqdm
+from multiprocessing import Pool
 
 # Full path to ffprobe
 FFPROBE_PATH = 'C:\\ffmpeg\\bin\\ffprobe.exe'
@@ -32,3 +31,22 @@ def has_audio_stream(video_path):
     except Exception as e:
         logging.error(f"Error occurred while probing video: {video_path}, you may need to install ffprobe! Now set audio to false!")
         return False
+
+def enhance_frame(frame_path, esrgan_script_path, esrgan_model_path, esrgan_output_dir):
+    command = [
+        'python', str(esrgan_script_path), '-n', 'RealESRGAN_x4plus_anime_6B',
+        '-i', str(frame_path), '-o', str(esrgan_output_dir / frame_path.name),
+        '--model_path', str(esrgan_model_path)
+    ]
+    subprocess.run(command, check=True)
+
+class VideoEnhancer:
+    def __init__(self, esrgan_script_path, esrgan_model_path, esrgan_output_dir):
+        self.esrgan_script_path = esrgan_script_path
+        self.esrgan_model_path = esrgan_model_path
+        self.esrgan_output_dir = esrgan_output_dir
+
+    def enhance_frames(self, input_dir):
+        frame_paths = list(input_dir.glob('*.png'))
+        with Pool() as pool:
+            pool.starmap(enhance_frame, [(frame, self.esrgan_script_path, self.esrgan_model_path, self.esrgan_output_dir) for frame in frame_paths])
