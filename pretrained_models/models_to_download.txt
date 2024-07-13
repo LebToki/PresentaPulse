@@ -1,0 +1,28 @@
+﻿Folder PATH listing for volume Drive D
+Volume serial number is 4819-3145
+D:.
+│   .gitkeep
+│   model.txt
+│   realesr-animevideov3.pth
+│   RealESRGAN_x4plus.pth
+│   RealESRGAN_x4plus_anime_6B.pth
+│   RealESRNet_x4plus.pth
+│   
+├───insightface
+│   └───models
+│       └───buffalo_l
+│               2d106det.onnx
+│               det_10g.onnx
+│               
+└───liveportrait
+    │   landmark.onnx
+    │   
+    ├───base_models
+    │       appearance_feature_extractor.pth
+    │       motion_extractor.pth
+    │       spade_generator.pth
+    │       warping_module.pth
+    │       
+    └───retargeting_models
+            stitching_retargeting_module.pth
+            
