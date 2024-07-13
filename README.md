@@ -73,7 +73,7 @@ Once the application is running, you can access the web interface using the loca
 - I would appreciate it if you follow me, star the repo, and check the other AI-related repos too :)
 
 **Pretrained Models and Configuration:**
-create this directory and download the models from 
+create this directory and to download the Pretrained models 
 ```text
 D:\tools\LivePortrait\pretrained_weights
 ```
@@ -84,6 +84,16 @@ git clone https://huggingface.co/KwaiVGI/liveportrait pretrained_weights
 ```
 alternatively you may try to download the archive from Google Drive
 (https://drive.google.com/drive/folders/1UtKgzKjFAOmZkhNK-OYT0caJ_w2XAnib)
+
+## Go to Hugging Face and look for these additional models 
+download them to the pretrained_weights folder too
+
+```plaintext
+- realesr-animevideov3.pth
+- RealESRGAN_x4plus.pth
+- RealESRGAN_x4plus_anime_6B.pth
+- RealESRNet_x4plus.pth
+```
 
 ## Directory Structure
 
