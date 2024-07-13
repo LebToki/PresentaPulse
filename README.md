@@ -11,6 +11,12 @@ PresentaPulse leverages the power of LivePortrait and Real-ESRGAN to create ultr
 
 ![image](https://github.com/user-attachments/assets/913378a1-406d-4a63-b00d-1f1ef3426ff7)
 
+## What to expect (Magic!)
+![original](https://github.com/user-attachments/assets/79297188-24dc-4841-83f8-decaf9d67f0a)
+![Original with Expression Applied](https://github.com/user-attachments/assets/da6dcde1-7772-4356-bcf5-5b74a8cbf4c4)
+![LivePortrait Face Markers is magical](https://github.com/user-attachments/assets/fcb28cb4-f519-4aa5-b7eb-68d655394666)
+
+
 ## How to use:
 - Choose your image
 - Choose your Facial Expression (driving video)
@@ -19,7 +25,7 @@ PresentaPulse leverages the power of LivePortrait and Real-ESRGAN to create ultr
 - Enhances frames using Real-Esrgan,
 - Enhances Generated Video,
 - Re-Assemble Video for Download
-
+  
 ## Installation
 
 ### Prerequisites
@@ -52,8 +58,31 @@ pip install -r requirements.txt
 ```sh
 python app.py
 ```
-
 Once the application is running, you can access the web interface using the local URL provided in the terminal.
+
+### Recommended Models
+realesr-animevideov3.pth
+│   RealESRGAN_x4plus.pth
+│   RealESRGAN_x4plus_anime_6B.pth
+│   RealESRNet_x4plus.pth
+│   
+├───insightface
+│   └───models
+│       └───buffalo_l
+│               2d106det.onnx
+│               det_10g.onnx
+│               
+└───liveportrait
+    │   landmark.onnx
+    │   
+    ├───base_models
+    │       appearance_feature_extractor.pth
+    │       motion_extractor.pth
+    │       spade_generator.pth
+    │       warping_module.pth
+    │       
+    └───retargeting_models
+            stitching_retargeting_module.pth
 
 ## Acknowledgements
 
@@ -74,10 +103,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 For more information, please visit 2TInteractive (https://2tinteractive.com) or contact Tarek Tarabichi.
 
-## Visual Features 
-![original](https://github.com/user-attachments/assets/79297188-24dc-4841-83f8-decaf9d67f0a)
-![Original with Expression Applied](https://github.com/user-attachments/assets/da6dcde1-7772-4356-bcf5-5b74a8cbf4c4)
-![LivePortrait Face Markers is magical](https://github.com/user-attachments/assets/fcb28cb4-f519-4aa5-b7eb-68d655394666)
 
 
 ## TO DO
