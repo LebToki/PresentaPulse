@@ -6,6 +6,7 @@ from multiprocessing import Pool
 # Full path to ffprobe
 FFPROBE_PATH = 'C:\\ffmpeg\\bin\\ffprobe.exe'
 
+
 def exec_cmd(cmd, total_steps=None):
     try:
         with tqdm(total=total_steps, desc="Processing", unit="step") as pbar:
@@ -23,14 +24,18 @@ def exec_cmd(cmd, total_steps=None):
         logging.error(f"Command '{cmd}' failed with error: {e.stderr.decode('utf-8')}")
         raise
 
+
 def has_audio_stream(video_path):
-    cmd = [FFPROBE_PATH, '-v', 'error', '-select_streams', 'a', '-show_entries', 'stream=codec_type', '-of', 'default=noprint_wrappers=1:nokey=1', video_path]
+    cmd = [FFPROBE_PATH, '-v', 'error', '-select_streams', 'a', '-show_entries', 'stream=codec_type', '-of',
+           'default=noprint_wrappers=1:nokey=1', video_path]
     try:
         result = exec_cmd(' '.join(cmd))
         return 'audio' in result
     except Exception as e:
-        logging.error(f"Error occurred while probing video: {video_path}, you may need to install ffprobe! Now set audio to false!")
+        logging.error(
+            f"Error occurred while probing video: {video_path}, you may need to install ffprobe! Now set audio to false!")
         return False
+
 
 def enhance_frame(frame_path, esrgan_script_path, esrgan_model_path, esrgan_output_dir):
     command = [
@@ -39,6 +44,7 @@ def enhance_frame(frame_path, esrgan_script_path, esrgan_model_path, esrgan_outp
         '--model_path', str(esrgan_model_path)
     ]
     subprocess.run(command, check=True)
+
 
 class VideoEnhancer:
     def __init__(self, esrgan_script_path, esrgan_model_path, esrgan_output_dir):
@@ -49,4 +55,6 @@ class VideoEnhancer:
     def enhance_frames(self, input_dir):
         frame_paths = list(input_dir.glob('*.png'))
         with Pool() as pool:
-            pool.starmap(enhance_frame, [(frame, self.esrgan_script_path, self.esrgan_model_path, self.esrgan_output_dir) for frame in frame_paths])
+            pool.starmap(enhance_frame,
+                         [(frame, self.esrgan_script_path, self.esrgan_model_path, self.esrgan_output_dir) for frame in
+                          frame_paths])
