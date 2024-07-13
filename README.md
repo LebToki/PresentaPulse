@@ -37,8 +37,8 @@ PresentaPulse leverages the power of LivePortrait and Real-ESRGAN to create ultr
 ### Clone the Repository
 
 ```sh
-git clone https://github.com/yourusername/LivePortrait-PresentaPulse.git
-cd LivePortrait-PresentaPulse
+git clone https://github.com/LebToki/PresentaPulse.git
+cd PresentaPulse
 ```
 
 ### Create and Activate Virtual Environment
