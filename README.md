@@ -61,14 +61,29 @@ python app.py
 Once the application is running, you can access the web interface using the local URL provided in the terminal.
 
 ### Recommended Models
-I think it is worth mentionning that you need to mind that I am hardcoding my directory path for now !
-so you are recommended to change that path to work with your own system deployment path until I get to a mature version
 
-(Pretrained Models and Configuration)
+**Worth mentioning:**
+- You need to mind that I am hardcoding my directory path for now! So, you are recommended to change that path to work with your own system deployment path until I get to a mature version.
+- I suggest you clone Real-ESRGAN in the root folder of the project and build it within to avoid messing up with the codebase and compatibility.
+- Make sure your Torch has CUDA support.
+- Make sure your Onnxruntime has CUDA support.
+- Experiment with different expressions (Pexels has a few solid good ones).
+- Avoid facial expressions with tons of camera movements, pans, and tilts.
+- Have fun and experiment.
+- I would appreciate it if you follow me, star the repo, and check the other AI-related repos too :)
+
+**Pretrained Models and Configuration:**
+create this directory and download the models from 
+```text
 D:\tools\LivePortrait\pretrained_weights
+```
 
-
-
+# you may need to run `git lfs install` first
+```text
+git clone https://huggingface.co/KwaiVGI/liveportrait pretrained_weights
+```
+alternatively you may try to download the archive from Google Drive
+(https://drive.google.com/drive/folders/1UtKgzKjFAOmZkhNK-OYT0caJ_w2XAnib)
 
 ## Directory Structure
 
@@ -99,7 +114,7 @@ RealESRNet_x4plus.pth
 
 ## Acknowledgements
 
-We give kudos to the original creator of LivePortrait and every other library we are using, including:
+Let'us all give kudos to the original creator of LivePortrait and every other library we are using, including:
 
 - LivePortrait (https://github.com/ymuhong/LivePortrait-Advanced)
 - Real-ESRGAN (https://github.com/xinntao/Real-ESRGAN)
@@ -117,8 +132,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 For more information, please visit 2TInteractive (https://2tinteractive.com) or contact Tarek Tarabichi.
 
 
-
 ## TO DO
-Now the Fun-part is still being worked on 
-Taking this whole thing into Real-Esrgan and applying the highest quality possible using RealESRGAN_x4plus_anime_6B.pth or RealESRGAN_x4plus.pth
+
+- **The Fun-part is still being worked on:** Taking this whole thing into Real-ESRGAN and applying the highest quality possible using `RealESRGAN_x4plus_anime_6B.pth` or `RealESRGAN_x4plus.pth`.
+- **The Wishlist is growing:**
+  - Possibly integrate multiface with object and zones detection and targeting.
+  - Possibly working around the square generation limitation (1:1).
+  - Possibly trying to integrate MimicMotion which will require updating the workflow to include the use of MimicMotion for generating motion sequences before or after the Real-ESRGAN enhancement. The only issue is its high demands on PC resources which could be an issue (for now at least).
+
 
