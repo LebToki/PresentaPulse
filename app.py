@@ -1,13 +1,4 @@
-#app.py
-
 # coding: utf-8
-# Choose your image
-# Choose your Facial Expression (driving video)
-# Kick-Starts Multi-Threading Operation on Windows Operating System,
-# downscales the original Facial Expression (driving video),
-# Enhances frames using Real-Esrgan,
-# Enhances Generated Video,
-# Re-Assemble Video for Download
 
 import os
 import subprocess
@@ -15,13 +6,12 @@ from pathlib import Path
 import tyro
 import gradio as gr
 import os.path as osp
-from multiprocessing import Pool
 from src.utils.helper import load_description
 from src.gradio_pipeline import GradioPipeline
 from src.config.crop_config import CropConfig
 from src.config.argument_config import ArgumentConfig
 from src.config.inference_config import InferenceConfig
-from src.utils.video import has_audio_stream, exec_cmd
+from src.utils.video import has_audio_stream, exec_cmd, VideoEnhancer
 
 # Paths
 project_root = Path('D:/tools/LivePortrait')
@@ -35,6 +25,8 @@ esrgan_script_path = project_root / 'real-esrgan' / 'inference_realesrgan.py'
 os.makedirs(live_portrait_output_dir, exist_ok=True)
 os.makedirs(esrgan_input_dir, exist_ok=True)
 os.makedirs(esrgan_output_dir, exist_ok=True)
+
+enhancer = VideoEnhancer(esrgan_script_path, esrgan_model_path, esrgan_output_dir)
 
 
 def partial_fields(target_class, kwargs):
@@ -54,21 +46,6 @@ def extract_frames(video_path, output_dir):
         str(output_dir / 'frame_%04d.png')
     ]
     subprocess.run(command, check=True)
-
-
-def enhance_frame(frame_path):
-    command = [
-        'python', str(esrgan_script_path), '-n', 'RealESRGAN_x4plus_anime_6B',
-        '-i', str(frame_path), '-o', str(esrgan_output_dir / frame_path.name),
-        '--model_path', str(esrgan_model_path)
-    ]
-    subprocess.run(command, check=True)
-
-
-def enhance_frames(input_dir):
-    frame_paths = list(input_dir.glob('*.png'))
-    with Pool() as pool:
-        pool.map(enhance_frame, frame_paths)
 
 
 def reassemble_video(input_dir, output_video_path, fps=30):
@@ -91,7 +68,7 @@ def enhance_video(video_path):
     extract_frames(downscaled_video_path, esrgan_input_dir)
 
     # Enhance frames using Real-ESRGAN
-    enhance_frames(esrgan_input_dir)
+    enhancer.enhance_frames(esrgan_input_dir)
 
     # Reassemble the enhanced frames into a video
     reassemble_video(esrgan_output_dir, enhanced_video_path)
