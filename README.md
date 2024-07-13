@@ -126,7 +126,10 @@ RealESRNet_x4plus.pth
 
 Let'us all give kudos to the original creator of LivePortrait and every other library we are using, including:
 
-- LivePortrait (https://github.com/ymuhong/LivePortrait-Advanced)
+- LivePortrait (https://github.com/KwaiVGI/LivePortrait)
+The original Creator
+
+- LivePortrait Advanced (https://github.com/ymuhong/LivePortrait-Advanced)
 - Real-ESRGAN (https://github.com/xinntao/Real-ESRGAN)
 
 ## Contributing
