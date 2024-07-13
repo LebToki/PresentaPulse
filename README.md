@@ -7,6 +7,8 @@
 ## Visual Features 
 ![original](https://github.com/user-attachments/assets/79297188-24dc-4841-83f8-decaf9d67f0a)
 ![Original with Expression Applied](https://github.com/user-attachments/assets/da6dcde1-7772-4356-bcf5-5b74a8cbf4c4)
+![LivePortrait Face Markers is magical](https://github.com/user-attachments/assets/fcb28cb4-f519-4aa5-b7eb-68d655394666)
+
 
 ## TO DO
 Now the Fun-part is still being worked on 
