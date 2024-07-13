@@ -95,7 +95,7 @@ download them to the pretrained_weights folder too
 - RealESRNet_x4plus.pth
 ```
 
-## Directory Structure
+## Directory Structure of /pretrained_weights/
 
 ```plaintext
 realesr-animevideov3.pth
