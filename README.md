@@ -61,11 +61,23 @@ python app.py
 Once the application is running, you can access the web interface using the local URL provided in the terminal.
 
 ### Recommended Models
+I think it is worth mentionning that you need to mind that I am hardcoding my directory path for now !
+so you are recommended to change that path to work with your own system deployment path until I get to a mature version
+
+(Pretrained Models and Configuration)
+D:\tools\LivePortrait\pretrained_weights
+
+
+
+
+## Directory Structure
+
+```plaintext
 realesr-animevideov3.pth
-│   RealESRGAN_x4plus.pth
-│   RealESRGAN_x4plus_anime_6B.pth
-│   RealESRNet_x4plus.pth
-│   
+RealESRGAN_x4plus.pth
+RealESRGAN_x4plus_anime_6B.pth
+RealESRNet_x4plus.pth
+
 ├───insightface
 │   └───models
 │       └───buffalo_l
@@ -83,6 +95,7 @@ realesr-animevideov3.pth
     │       
     └───retargeting_models
             stitching_retargeting_module.pth
+```
 
 ## Acknowledgements
 
