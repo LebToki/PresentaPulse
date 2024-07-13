@@ -1,7 +1,8 @@
 # PresentaPulse
-### LivePortrait based PresentaPulse
-### Efficient Portrait Animation with Smoothing and Retargeting Control with integrated Real-ESRGAN enhancement workflow and Multi-Threading
+LivePortrait based PresentaPulse
+Efficient Portrait Animation with Smoothing and Retargeting Control with integrated Real-ESRGAN enhancement workflow and Multi-Threading
 
+The enhanced repo
 ![image](https://github.com/user-attachments/assets/913378a1-406d-4a63-b00d-1f1ef3426ff7)
 
 ## Visual Features 
