@@ -1,4 +1,4 @@
-# LivePortrait-PresentaPulse
+# PresentaPulse
 
 PresentaPulse leverages the power of LivePortrait and Real-ESRGAN to create ultra-realistic animated portraits. Developed by Tarek Tarabichi from [2TInteractive](https://2tinteractive.com), this tool integrates advanced AI models to enhance image quality and create stunning animations.
 
