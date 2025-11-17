@@ -1,10 +1,39 @@
 import subprocess
 import logging
+import shutil
+import os
 from tqdm import tqdm
 from multiprocessing import Pool
 
-# Full path to ffprobe
-FFPROBE_PATH = 'C:\\ffmpeg\\bin\\ffprobe.exe'
+# Find ffprobe in PATH or use default location
+def find_ffprobe():
+    """Find ffprobe executable in system PATH or common locations."""
+    # First try to find in PATH
+    ffprobe_path = shutil.which('ffprobe')
+    if ffprobe_path:
+        return ffprobe_path
+    
+    # Try common installation locations
+    import platform
+    if platform.system() == 'Windows':
+        common_paths = [
+            'C:\\ffmpeg\\bin\\ffprobe.exe',
+            'C:\\Program Files\\ffmpeg\\bin\\ffprobe.exe',
+        ]
+    else:
+        common_paths = [
+            '/usr/bin/ffprobe',
+            '/usr/local/bin/ffprobe',
+        ]
+    
+    for path in common_paths:
+        if os.path.exists(path):
+            return path
+    
+    # Fallback to just 'ffprobe' and hope it's in PATH
+    return 'ffprobe'
+
+FFPROBE_PATH = find_ffprobe()
 
 
 def exec_cmd(cmd, total_steps=None):
