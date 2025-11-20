@@ -1,0 +1,38 @@
+# PresentaPulse Requirements
+# Python 3.8+ required
+
+# Core dependencies
+gradio>=4.0.0
+tyro>=0.5.0
+tqdm>=4.65.0
+
+# Note: The following modules are expected from LivePortrait repository:
+# - src.utils.helper
+# - src.gradio_pipeline
+# - src.config.crop_config
+# - src.config.argument_config
+# - src.config.inference_config
+# - src.utils.video (partial - some functions are in video.py)
+#
+# To get these, you need to clone LivePortrait:
+# git clone https://github.com/KwaiVGI/LivePortrait.git
+# Then either:
+# 1. Copy the src/ directory to this project, OR
+# 2. Set LIVEPORTRAIT_ROOT environment variable to point to LivePortrait directory
+
+# Optional but recommended
+torch>=2.0.0
+torchvision>=0.15.0
+onnxruntime-gpu>=1.15.0  # Use onnxruntime if no GPU
+opencv-python>=4.8.0  # For face detection
+insightface>=0.7.3  # For advanced face detection (optional)
+psutil>=5.9.0  # For system monitoring and performance optimization
+
+# API Server dependencies (optional)
+flask>=2.3.0  # For REST API server
+flask-limiter>=3.5.0  # For rate limiting
+werkzeug>=2.3.0  # For API key security
+
+# For Real-ESRGAN integration (if using separate Real-ESRGAN installation)
+# Real-ESRGAN should be cloned separately as mentioned in README
+

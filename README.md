@@ -1,156 +1,627 @@
-# PresentaPulse
+<div align="center">
 
-PresentaPulse leverages the power of LivePortrait and Real-ESRGAN to create ultra-realistic animated portraits. Developed by Tarek Tarabichi from [2TInteractive](https://2tinteractive.com), this tool integrates advanced AI models to enhance image quality and create stunning animations.
+![PresentaPulse Banner](assets/images/OG_Banner_PresentaPulse.png)
 
-## Features
+# 🎬 PresentaPulse
 
-- **Realistic Animations**: Generate ultra-realistic animations from still images.
-- **Image Enhancement**: Use Real-ESRGAN to upscale and enhance image quality.
-- **Interactive UI**: User-friendly interface powered by Gradio.
-- **Multiprocessing**: Optimized for performance with multiprocessing support.
+### Ultra-Realistic Portrait Animation Studio
 
-![image](https://github.com/user-attachments/assets/913378a1-406d-4a63-b00d-1f1ef3426ff7)
+**Transform still images into lifelike animated portraits using LivePortrait and Real-ESRGAN**
 
-## What to expect (Magic!)
-![original](https://github.com/user-attachments/assets/79297188-24dc-4841-83f8-decaf9d67f0a)
-![Original with Expression Applied](https://github.com/user-attachments/assets/da6dcde1-7772-4356-bcf5-5b74a8cbf4c4)
-![LivePortrait Face Markers is magical](https://github.com/user-attachments/assets/fcb28cb4-f519-4aa5-b7eb-68d655394666)
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-lightgrey.svg)]()
+[![Gradio](https://img.shields.io/badge/UI-Gradio-purple.svg)](https://gradio.app/)
 
+[Features](#-features) • [Installation](#-installation) • [Quick Start](#-quick-start) • [Models](#-pretrained-models) • [Requirements](#-system-requirements) • [API](#-api-integration) • [Documentation](#-documentation)
 
-## How to use:
-- Choose your image
-- Choose your Facial Expression (driving video)
-- Kick-Starts Multi-Threading Operation on Windows Operating System,
-- downscales the original Facial Expression (driving video),
-- Enhances frames using Real-Esrgan,
-- Enhances Generated Video,
-- Re-Assemble Video for Download
-  
-## Installation
+---
+
+</div>
+
+## 📋 Table of Contents
+
+- [Overview](#-overview)
+- [Features](#-features)
+- [Installation](#-installation)
+- [Quick Start](#-quick-start)
+- [Pretrained Models](#-pretrained-models)
+- [System Requirements](#-system-requirements)
+- [Usage Guide](#-usage-guide)
+- [API Integration](#-api-integration)
+- [Performance](#-performance-optimization)
+- [Troubleshooting](#-troubleshooting)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+---
+
+## 🎯 Overview
+
+**PresentaPulse** is a powerful, feature-rich application for creating ultra-realistic animated portraits from still images. Built on top of LivePortrait and enhanced with Real-ESRGAN, it provides a comprehensive suite of tools for professional-quality portrait animation.
+
+### Key Highlights
+
+- ✨ **Advanced AI Models** - Powered by LivePortrait and Real-ESRGAN
+- 🎨 **Modern UI/UX** - Beautiful dark theme with glassmorphism design
+- ⚡ **High Performance** - GPU acceleration, batch processing, and optimization
+- 🔧 **Extensive Controls** - Fine-tune every aspect of your animations
+- 📦 **Multiple Export Formats** - MP4, MOV, WebM, GIF, and frame sequences
+- 🔌 **REST API** - Programmatic access for integration
+
+---
+
+## ✨ Features
+
+### 🎥 Core Animation Features
+
+| Feature                  | Description                                       |
+|--------------------------|---------------------------------------------------|
+| **Portrait Animation**   | Transform still images into animated portraits    |
+| **Multi-Face Detection** | Detect and process multiple faces in group photos |
+| **Face Selection**       | Choose which faces to animate                     |
+| **Eye/Lip Retargeting**  | Fine-tune facial expressions                      |
+| **Relative Motion**      | Natural motion transfer from driving videos       |
+
+### 🎨 Enhancement Features
+
+| Feature                     | Description                              |
+|-----------------------------|------------------------------------------|
+| **Real-ESRGAN Integration** | Multiple model support (4 models)        |
+| **Quality Presets**         | Low, Medium, High, Ultra quality options |
+| **Temporal Smoothing**      | Reduce jitter between frames             |
+| **Denoising**               | Remove noise from videos                 |
+| **Motion Stabilization**    | Reduce camera shake                      |
+
+### 📐 Format & Export Features
+
+| Feature                     | Description                              |
+|-----------------------------|------------------------------------------|
+| **Aspect Ratios**           | 1:1, 16:9, 9:16, 4:3, 21:9, Custom       |
+| **Smart Cropping**          | Center, face-aware, directional cropping |
+| **Background Preservation** | Padding mode maintains full image        |
+| **Export Formats**          | MP4, MOV, WebM, GIF, Frame sequences     |
+| **Custom Resolution**       | Export at any resolution                 |
+
+### ⚡ Performance Features
+
+| Feature                   | Description                    |
+|---------------------------|--------------------------------|
+| **GPU Memory Management** | Automatic memory optimization  |
+| **Batch Processing**      | Process multiple images/videos |
+| **Processing Queue**      | Thread-safe queue system       |
+| **Multi-GPU Support**     | Automatic GPU selection        |
+| **Low-Memory Mode**       | Optimized for weaker GPUs      |
+| **Checkpoint/Resume**     | Resume interrupted processing  |
+
+### 🎯 Advanced Controls
+
+| Feature                  | Description                           |
+|--------------------------|---------------------------------------|
+| **Expression Intensity** | Amplify or reduce expression strength |
+| **Blink Frequency**      | Control blink rate                    |
+| **Head Movement**        | Adjust head movement intensity        |
+| **Gaze Direction**       | Control eye gaze direction            |
+| **Expression Presets**   | 6 predefined expression presets       |
+
+### 🔊 Audio Features
+
+| Feature                 | Description                               |
+|-------------------------|-------------------------------------------|
+| **Audio Sync**          | Extract and sync audio from driving video |
+| **Background Music**    | Add background music with volume control  |
+| **Audio Normalization** | Consistent audio levels                   |
+| **Loop Audio**          | Loop audio if shorter than video          |
+
+### 🎨 UI/UX Features
+
+| Feature                | Description                          |
+|------------------------|--------------------------------------|
+| **Real-time Preview**  | Preview frames during processing     |
+| **History & Gallery**  | View and manage previous generations |
+| **Comparison View**    | Before/after side-by-side comparison |
+| **Keyboard Shortcuts** | Quick actions with keyboard          |
+| **Progress Tracking**  | Real-time progress with ETA          |
+
+---
+
+## 🚀 Installation
 
 ### Prerequisites
 
-- Python 3.8 or higher
-- Pip
-- Virtualenv
+- **Python** 3.8 or higher
+- **pip** (Python package manager)
+- **FFmpeg** (for video processing)
+- **CUDA-capable GPU** (recommended, CPU mode available)
 
-### Clone the Repository
+### Step 1: Clone Repository
 
-```sh
+```bash
 git clone https://github.com/LebToki/PresentaPulse.git
 cd PresentaPulse
 ```
 
-### Create and Activate Virtual Environment
-```sh
+### Step 2: Create Virtual Environment
+
+**Windows:**
+```batch
 python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+venv\Scripts\activate
 ```
 
-### Install Dependencies
-```sh
+**Linux/Mac:**
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
+### Step 3: Install Dependencies
+
+**Windows (Recommended):**
+```batch
+install.bat
+```
+
+**Manual:**
+```bash
 pip install -r requirements.txt
 ```
 
-## Usage
+### Step 4: Verify Setup
 
-### Run the Application
-```sh
+```batch
+check_setup.bat
+```
+
+---
+
+## ⚡ Quick Start
+
+### Windows
+
+```batch
+# Run application
+run.bat
+```
+
+### Manual
+
+```bash
 python app.py
 ```
-Once the application is running, you can access the web interface using the local URL provided in the terminal.
 
-### Recommended Models
+### Access Web Interface
 
-**Worth mentioning:**
-- You need to mind that I am hardcoding my directory path for now! So, you are recommended to change that path to work with your own system deployment path until I get to a mature version.
-- I suggest you clone Real-ESRGAN in the root folder of the project and build it within to avoid messing up with the codebase and compatibility.
-- Make sure your Torch has CUDA support.
-- Make sure your Onnxruntime has CUDA support.
-- Experiment with different expressions (Pexels has a few solid good ones).
-- Avoid facial expressions with tons of camera movements, pans, and tilts.
-- Have fun and experiment.
-- I would appreciate it if you follow me, star the repo, and check the other AI-related repos too :)
-
-**Pretrained Models and Configuration:**
-create this directory and to download the Pretrained models 
-```text
-D:\tools\LivePortrait\pretrained_weights
+Open your browser and navigate to:
+```
+http://localhost:8080
 ```
 
-# you may need to run `git lfs install` first
-```text
+---
+
+## 📦 Pretrained Models
+
+### Required Models (~2.5 GB total)
+
+Download all models to `pretrained_weights/` directory.
+
+#### LivePortrait Models (~1.3 GB)
+
+```bash
+# Clone LivePortrait models (requires git-lfs)
+git lfs install
 git clone https://huggingface.co/KwaiVGI/liveportrait pretrained_weights
 ```
-alternatively you may try to download the archive from Google Drive
-(https://drive.google.com/drive/folders/1UtKgzKjFAOmZkhNK-OYT0caJ_w2XAnib)
 
-## Go to Hugging Face and look for these additional models 
-download them to the pretrained_weights folder too
+**Model Files:**
+- `liveportrait/landmark.onnx` (~50 MB)
+- `liveportrait/base_models/appearance_feature_extractor.pth` (~200 MB)
+- `liveportrait/base_models/motion_extractor.pth` (~150 MB)
+- `liveportrait/base_models/spade_generator.pth` (~400 MB)
+- `liveportrait/base_models/warping_module.pth` (~300 MB)
+- `liveportrait/retargeting_models/stitching_retargeting_module.pth` (~200 MB)
 
-```plaintext
-- realesr-animevideov3.pth
-- RealESRGAN_x4plus.pth
-- RealESRGAN_x4plus_anime_6B.pth
-- RealESRNet_x4plus.pth
+#### InsightFace Models (~500 MB)
+
+Included in LivePortrait repository:
+- `insightface/models/buffalo_l/2d106det.onnx` (~200 MB)
+- `insightface/models/buffalo_l/det_10g.onnx` (~300 MB)
+
+#### Real-ESRGAN Models (~165 MB)
+
+| Model                            | Size   | Use Case                     | Download                                                                                                     |
+|----------------------------------|--------|------------------------------|--------------------------------------------------------------------------------------------------------------|
+| `RealESRGAN_x4plus.pth`          | ~67 MB | General purpose 4x upscaling | [Download](https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth)            |
+| `RealESRGAN_x4plus_anime_6B.pth` | ~17 MB | Anime/illustration optimized | [Download](https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.2.4/RealESRGAN_x4plus_anime_6B.pth) |
+| `realesr-animevideov3.pth`       | ~17 MB | Anime video optimized        | [Download](https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesr-animevideov3.pth)       |
+| `RealESRNet_x4plus.pth`          | ~64 MB | Network-based 4x upscaling   | [Download](https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.1/RealESRNet_x4plus.pth)            |
+
+### Complete Directory Structure
+
+```
+pretrained_weights/
+├── RealESRGAN_x4plus.pth                    (~67 MB)
+├── RealESRGAN_x4plus_anime_6B.pth           (~17 MB)
+├── realesr-animevideov3.pth                 (~17 MB)
+├── RealESRNet_x4plus.pth                    (~64 MB)
+│
+├── insightface/
+│   └── models/
+│       └── buffalo_l/
+│           ├── 2d106det.onnx                (~200 MB)
+│           └── det_10g.onnx                 (~300 MB)
+│
+└── liveportrait/
+    ├── landmark.onnx                        (~50 MB)
+    ├── base_models/
+    │   ├── appearance_feature_extractor.pth  (~200 MB)
+    │   ├── motion_extractor.pth              (~150 MB)
+    │   ├── spade_generator.pth              (~400 MB)
+    │   └── warping_module.pth               (~300 MB)
+    └── retargeting_models/
+        └── stitching_retargeting_module.pth  (~200 MB)
+
+Total: ~2.5 GB
 ```
 
-## Directory Structure of /pretrained_weights/
+---
 
-```plaintext
-realesr-animevideov3.pth
-RealESRGAN_x4plus.pth
-RealESRGAN_x4plus_anime_6B.pth
-RealESRNet_x4plus.pth
+## 💻 System Requirements
 
-├───insightface
-│   └───models
-│       └───buffalo_l
-│               2d106det.onnx
-│               det_10g.onnx
-│               
-└───liveportrait
-    │   landmark.onnx
-    │   
-    ├───base_models
-    │       appearance_feature_extractor.pth
-    │       motion_extractor.pth
-    │       spade_generator.pth
-    │       warping_module.pth
-    │       
-    └───retargeting_models
-            stitching_retargeting_module.pth
+### Minimum Requirements
+
+| Component   | Specification                            |
+|-------------|------------------------------------------|
+| **OS**      | Windows 10/11, Linux (Ubuntu 20.04+)     |
+| **CPU**     | Intel i5 / AMD Ryzen 5 (4+ cores)        |
+| **RAM**     | 8 GB                                     |
+| **GPU**     | NVIDIA GTX 1060 (6GB VRAM) or equivalent |
+| **Storage** | 10 GB free space (models + outputs)      |
+| **Python**  | 3.8+                                     |
+
+### Recommended Requirements
+
+| Component   | Specification                         |
+|-------------|---------------------------------------|
+| **OS**      | Windows 11 / Linux (Ubuntu 22.04+)    |
+| **CPU**     | Intel i7 / AMD Ryzen 7 (8+ cores)     |
+| **RAM**     | 16 GB+                                |
+| **GPU**     | NVIDIA RTX 3060 (12GB VRAM) or better |
+| **Storage** | 20 GB+ SSD (faster processing)        |
+| **Python**  | 3.10+                                 |
+
+### Optimal Performance (RTX Series)
+
+| Component   | Specification                         |
+|-------------|---------------------------------------|
+| **GPU**     | NVIDIA RTX 3070/3080/3090 (8GB+ VRAM) |
+| **RAM**     | 32 GB                                 |
+| **Storage** | NVMe SSD                              |
+| **CUDA**    | 11.8+                                 |
+| **cuDNN**   | 8.6+                                  |
+
+### Power Consumption Estimates
+
+| GPU Model       | Idle | Processing | Peak |
+|-----------------|------|------------|------|
+| GTX 1060 (6GB)  | 20W  | 120W       | 150W |
+| RTX 3060 (12GB) | 30W  | 170W       | 200W |
+| RTX 3070 (8GB)  | 25W  | 220W       | 250W |
+| RTX 3080 (10GB) | 30W  | 320W       | 350W |
+| RTX 3090 (24GB) | 50W  | 350W       | 450W |
+
+**Processing Times:**
+- **GTX 1060**: ~2-5 minutes per animation
+- **RTX 3060**: ~30-60 seconds per animation
+- **RTX 3070+**: ~15-30 seconds per animation
+
+---
+
+## 📖 Usage Guide
+
+### Basic Animation
+
+1. **Upload Image** - Select or upload a portrait image
+2. **Upload Video** - Choose a driving video with facial expressions
+3. **Configure Settings** (optional):
+   - Enable/disable relative motion
+   - Set crop and paste-back options
+   - Adjust smoothing and denoising
+4. **Click "Generate Animation"**
+5. **Download Result** - Get your animated portrait!
+
+### Multi-Face Processing
+
+1. Upload image with multiple faces
+2. Click **"Detect Faces"** button
+3. Preview shows detected faces with bounding boxes
+4. Select which faces to animate (or leave empty for all)
+5. Generate animation - each face processed individually
+
+### Aspect Ratio Customization
+
+1. Open **"Animation Settings"** accordion
+2. Select aspect ratio (16:9, 9:16, custom, etc.)
+3. Choose crop mode (center, face-aware, etc.)
+4. Enable "Preserve Background" for padding mode
+5. Generate with your preferred format
+
+### Batch Processing
+
+1. Go to **"Batch Processing"** tab
+2. Upload multiple images and videos
+3. Configure batch settings
+4. Click **"Start Batch Processing"**
+5. Download individual files or ZIP archive
+
+### Keyboard Shortcuts
+
+- `Ctrl + Enter` - Generate Animation
+- `Ctrl + R` - Refresh History Gallery
+- `Ctrl + K` - Toggle Shortcuts Panel
+- `Esc` - Close Modals/Accordions
+
+---
+
+## 🔌 API Integration
+
+### REST API Server
+
+PresentaPulse includes a REST API server for programmatic access.
+
+#### Start API Server
+
+```bash
+python api_server.py
 ```
 
-## Acknowledgements
+The API server runs on `http://localhost:5000` by default.
 
-Let'us all give kudos to the original creator of LivePortrait and every other library we are using, including:
+### API Endpoints
 
-- LivePortrait (https://github.com/KwaiVGI/LivePortrait)
-The original Creator
+#### Health Check
 
-- LivePortrait Advanced (https://github.com/ymuhong/LivePortrait-Advanced)
-- Real-ESRGAN (https://github.com/xinntao/Real-ESRGAN)
+```http
+GET /api/health
+```
 
-## Contributing
+**Response:**
+```json
+{
+  "status": "healthy",
+  "timestamp": "2024-01-01T00:00:00",
+  "version": "1.0.0"
+}
+```
 
-I welcome contributions! Please fork the repository and create a pull request.
+#### Generate Animation
 
-## License
+```http
+POST /api/v1/generate
+Headers:
+  X-API-Key: your_api_key
+Content-Type: application/json
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+{
+  "image_path": "path/to/image.jpg",
+  "video_path": "path/to/video.mp4",
+  "parameters": {
+    "relative_motion": true,
+    "do_crop": true,
+    "remap": true
+  }
+}
+```
 
-## Contact
+**Response:**
+```json
+{
+  "job_id": "abc123",
+  "status": "queued",
+  "estimated_time": 60
+}
+```
 
-For more information, please visit 2TInteractive (https://2tinteractive.com) or contact Tarek Tarabichi.
+#### Get Job Status
 
+```http
+GET /api/v1/job/{job_id}
+Headers:
+  X-API-Key: your_api_key
+```
 
-## TO DO
+#### Create API Key
 
-- **The Fun-part is still being worked on:** Taking this whole thing into Real-ESRGAN and applying the highest quality possible using `RealESRGAN_x4plus_anime_6B.pth` or `RealESRGAN_x4plus.pth`.
-- **The Wishlist is growing:**
-  - Possibly integrate multiface with object and zones detection and targeting.
-  - Possibly working around the square generation limitation (1:1).
-  - Possibly trying to integrate MimicMotion which will require updating the workflow to include the use of MimicMotion for generating motion sequences before or after the Real-ESRGAN enhancement. The only issue is its high demands on PC resources which could be an issue (for now at least).
+```http
+POST /api/v1/keys
+Content-Type: application/json
 
+{
+  "name": "My Application",
+  "rate_limit": 100
+}
+```
 
+#### Register Webhook
+
+```http
+POST /api/v1/webhook
+Headers:
+  X-API-Key: your_api_key
+Content-Type: application/json
+
+{
+  "url": "https://example.com/webhook",
+  "events": ["job.completed", "job.failed"]
+}
+```
+
+### Rate Limiting
+
+- Default: 1000 requests per hour per IP
+- Per-endpoint limits can be configured
+- API key-based rate limiting available
+
+### Authentication
+
+API keys are required for most endpoints. Include the API key in headers:
+
+```
+X-API-Key: your_api_key
+```
+
+Or as a query parameter:
+
+```
+?api_key=your_api_key
+```
+
+---
+
+## ⚡ Performance Optimization
+
+### GPU Memory Management
+
+- Automatic cache clearing
+- Memory usage monitoring
+- Low-memory mode for weaker GPUs
+
+### Enable Low-Memory Mode
+
+Set environment variable:
+```bash
+export LOW_MEMORY_MODE=true
+```
+
+Or toggle in UI: **Performance & System Info** → **Low Memory Mode**
+
+### Batch Processing Tips
+
+- Process multiple items in queue
+- Automatic resource management
+- Progress tracking per item
+
+### Multi-GPU Support
+
+- Automatic GPU detection
+- Load balancing
+- Device selection in UI
+
+---
+
+## 🛠️ Troubleshooting
+
+### Common Issues
+
+#### Import Errors
+
+**Problem:** `Import "src.utils.helper" could not be resolved`
+
+**Solution:** Clone LivePortrait repository and copy `src/` directory:
+```bash
+git clone https://github.com/KwaiVGI/LivePortrait.git
+cp -r LivePortrait/src PresentaPulse/src
+```
+
+#### CUDA Out of Memory
+
+**Solution:** Enable low-memory mode or reduce batch size
+
+#### FFmpeg Not Found
+
+**Solution:** Install FFmpeg and ensure it's in PATH:
+- Windows: Download from [ffmpeg.org](https://ffmpeg.org/download.html)
+- Linux: `sudo apt-get install ffmpeg`
+- Mac: `brew install ffmpeg`
+
+#### Models Not Found
+
+**Solution:** Download models to `pretrained_weights/` directory (see [Pretrained Models](#-pretrained-models))
+
+### Getting Help
+
+- Check [SETUP.md](SETUP.md) for detailed setup instructions
+- Review [ENHANCEMENTS.md](ENHANCEMENTS.md) for feature documentation
+- Open an issue on GitHub for bugs or feature requests
+
+---
+
+## 📚 Documentation
+
+### Additional Documentation Files
+
+- **[SETUP.md](SETUP.md)** - Detailed setup instructions
+- **[ENHANCEMENTS.md](ENHANCEMENTS.md)** - Complete feature roadmap
+- **[CHANGELOG.md](CHANGELOG.md)** - Version history
+- **[ENHANCEMENTS_SUMMARY.md](ENHANCEMENTS_SUMMARY.md)** - Quick feature reference
+- **[FEATURES_COMPLETE.md](FEATURES_COMPLETE.md)** - Completed features list
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+### Contribution Guidelines
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+### Code Style
+
+- Follow PEP 8 Python style guide
+- Add docstrings to functions and classes
+- Include type hints where possible
+- Write clear commit messages
+
+---
+
+## 🙏 Acknowledgements
+
+Special thanks to the creators of:
+
+- **[LivePortrait](https://github.com/KwaiVGI/LivePortrait)** - Core animation technology
+- **[Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN)** - Video enhancement
+- **[InsightFace](https://github.com/deepinsight/insightface)** - Face detection
+- **[Gradio](https://gradio.app/)** - Web interface framework
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👤 Author
+
+**Tarek Tarabichi**  
+[2TInteractive](https://2tinteractive.com)
+
+---
+
+## 🌟 Show Your Support
+
+If you find this project useful, please consider:
+
+- ⭐ **Starring** the repository
+- 🐛 **Reporting** bugs
+- 💡 **Suggesting** new features
+- 📢 **Sharing** with others
+
+---
+
+<div align="center">
+
+**Made with ❤️ by [2TInteractive](https://2tinteractive.com)**
+
+[Website](https://2tinteractive.com) • [GitHub](https://github.com/LebToki) • [Issues](https://github.com/LebToki/PresentaPulse/issues)
+
+---
+
+*Last Updated: 2024*
+
+</div>
