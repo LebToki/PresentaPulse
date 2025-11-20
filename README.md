@@ -622,6 +622,6 @@ If you find this project useful, please consider:
 
 ---
 
-*Last Updated: 2024*
+*Last Updated: November 20th, 2025*
 
 </div>
