@@ -2042,7 +2042,7 @@ with gr.Blocks(theme=theme, css=custom_css, title="PresentaPulse - LivePortrait 
 
 demo.launch(
     # server_port=args.server_port,
-    share=True,
+    share=False,
     server_name=args.server_name,
     server_port=8080  # Specify a different port here
 )
