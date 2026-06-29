@@ -43,6 +43,7 @@ class HistoryManager:
         self.history_file = self.history_dir / 'history.json'
         self.max_entries = max_entries
         self.history: List[GenerationHistory] = []
+        self._history_index: Dict[str, GenerationHistory] = {}
         self.load_history()
     
     def load_history(self):
@@ -60,6 +61,8 @@ class HistoryManager:
         except Exception as e:
             logging.error(f"Failed to load history: {e}")
             self.history = []
+
+        self._history_index = {entry.id: entry for entry in self.history}
     
     def save_history(self):
         """Save history to file."""
@@ -70,6 +73,8 @@ class HistoryManager:
                 to_remove = self.history[self.max_entries:]
                 for entry in to_remove:
                     self._cleanup_entry(entry)
+                    if entry.id in self._history_index:
+                        del self._history_index[entry.id]
                 self.history = self.history[:self.max_entries]
             
             data = [entry.to_dict() for entry in self.history]
@@ -105,16 +110,14 @@ class HistoryManager:
         
         # Add to beginning (newest first)
         self.history.insert(0, entry)
+        self._history_index[entry_id] = entry
         self.save_history()
         
         return entry_id
     
     def get_entry(self, entry_id: str) -> Optional[GenerationHistory]:
         """Get history entry by ID."""
-        for entry in self.history:
-            if entry.id == entry_id:
-                return entry
-        return None
+        return self._history_index.get(entry_id)
     
     def get_recent(self, limit: int = 10) -> List[GenerationHistory]:
         """Get recent history entries."""
@@ -130,6 +133,8 @@ class HistoryManager:
             if entry.id == entry_id:
                 self._cleanup_entry(entry)
                 self.history.pop(i)
+                if entry_id in self._history_index:
+                    del self._history_index[entry_id]
                 self.save_history()
                 return True
         return False
@@ -142,6 +147,7 @@ class HistoryManager:
     def clear_history(self):
         """Clear all history."""
         self.history = []
+        self._history_index = {}
         self.save_history()
     
     def create_thumbnail(self, video_path: str, output_path: str, frame_number: int = 1) -> bool:
