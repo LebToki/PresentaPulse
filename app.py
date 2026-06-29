@@ -418,13 +418,16 @@ def gpu_wrapped_execute_video(image_path, video_path, relative_motion, do_crop, 
             selected_faces_list = [faces[int(idx.split()[1]) - 1] for idx in selected_face_indices 
                                  if idx.startswith("Face")]
             
+            if CV2_AVAILABLE:
+                source_image = cv2.imread(image_path)
+
             for idx, face in enumerate(selected_faces_list):
                 if progress:
                     progress(idx / len(selected_faces_list), f"Processing face {idx+1}/{len(selected_faces_list)}...")
                 
                 # Crop face from image
                 if CV2_AVAILABLE:
-                    cropped_face = detector.crop_face(image_path, face)
+                    cropped_face = detector.crop_face(source_image, face)
                     temp_face_path = live_portrait_output_dir / f'temp_face_{idx}.jpg'
                     cv2.imwrite(str(temp_face_path), cropped_face)
                     
@@ -524,8 +527,8 @@ def gpu_wrapped_execute_image(*args, **kwargs):
 
 
 # assets
-example_portrait_dir = "assets/examples/source"
-example_video_dir = "assets/examples/driving"
+example_portrait_dir = "assets/source"
+example_video_dir = "assets/driving"
 data_examples = [
     [osp.join(example_portrait_dir, "s9.jpg"), osp.join(example_video_dir, "d0.mp4"), True, True, True, False],
     [osp.join(example_portrait_dir, "s6.jpg"), osp.join(example_video_dir, "d0.mp4"), True, True, True, False],

@@ -1,3 +1,2 @@
 # Reader
-
-Codebase optimized with dictionary lookup for HistoryManager.
+- Testing for `find_ffmpeg` has been added.
