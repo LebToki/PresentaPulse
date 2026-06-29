@@ -894,16 +894,69 @@ custom_css = """
         color: var(--text-primary) !important;
     }
     
+
+    .gradio-container .gr-button {
+        transition: all 0.2s ease-in-out !important;
+    }
+
+    .gradio-container .gr-button:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .gradio-container .gr-button:active {
+        transform: translateY(0) !important;
+    }
+
     .gradio-container .gr-button-primary {
         background: var(--primary-gradient) !important;
         border: none !important;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.25) !important;
     }
     
     .gradio-container .gr-button-primary:hover {
-        opacity: 0.9;
-        transform: translateY(-2px);
+        opacity: 0.95 !important;
+        box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4) !important;
+    }
+
+    .gradio-container .gr-button-secondary {
+        background: var(--glass-bg) !important;
+        border: 1px solid var(--glass-border) !important;
+        backdrop-filter: blur(10px) !important;
     }
     
+    .gradio-container .gr-button-secondary:hover {
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    /* Enhance panels with glassmorphism */
+    .gradio-container .gr-panel, .gradio-container .gr-box {
+        background: rgba(22, 27, 34, 0.7) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 1px solid var(--glass-border) !important;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+    }
+
+    /* Interactive inputs styling */
+    .gradio-container input:focus,
+    .gradio-container textarea:focus,
+    .gradio-container select:focus {
+        border-color: var(--accent) !important;
+        box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2) !important;
+        outline: none !important;
+    }
+
+    /* Improve slider handles */
+    input[type=range]::-webkit-slider-thumb {
+        background: var(--primary-gradient) !important;
+        border: 2px solid #fff !important;
+        box-shadow: 0 0 10px rgba(102, 126, 234, 0.5) !important;
+        cursor: pointer !important;
+    }
+
+
     .monospace {
         font-family: 'Courier New', monospace;
         font-size: 0.9rem;
@@ -1267,10 +1320,11 @@ with gr.Blocks(theme=theme, css=custom_css, title="PresentaPulse - LivePortrait 
             
             with gr.Row(elem_classes=["button-group"]):
                 process_button_animation = gr.Button(
-                    "🚀 Generate Animation",
+                    "🚀 Generate Animation (Ctrl+Enter)",
                     variant="primary",
                     size="lg",
-                    scale=2
+                    scale=2,
+                    elem_id="generate-animation-btn"
                 )
                 process_button_reset = gr.ClearButton(
                     [image_input, video_input],
@@ -1789,10 +1843,11 @@ with gr.Blocks(theme=theme, css=custom_css, title="PresentaPulse - LivePortrait 
             
             with gr.Row(elem_classes=["button-group"]):
                 process_button_retargeting = gr.Button(
-                    "🎗️ Apply Retargeting",
+                    "🎗️ Apply Retargeting (Ctrl+Enter)",
                     variant="primary",
                     size="lg",
-                    scale=2
+                    scale=2,
+                    elem_id="apply-retargeting-btn"
                 )
                 process_button_reset_retargeting = gr.ClearButton(
                     [
@@ -2041,6 +2096,23 @@ with gr.Blocks(theme=theme, css=custom_css, title="PresentaPulse - LivePortrait 
     )
 
 demo.launch(
+    head="""<script>
+function initKeyboardShortcuts() {
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.key === 'Enter') {
+            const animBtn = document.querySelector('#generate-animation-btn');
+            const retargetBtn = document.querySelector('#apply-retargeting-btn');
+            if (animBtn && animBtn.offsetParent !== null) {
+                animBtn.click();
+            } else if (retargetBtn && retargetBtn.offsetParent !== null) {
+                retargetBtn.click();
+            }
+        }
+    });
+}
+document.addEventListener('DOMContentLoaded', initKeyboardShortcuts);
+initKeyboardShortcuts();
+</script>""",
     # server_port=args.server_port,
     share=True,
     server_name=args.server_name,
