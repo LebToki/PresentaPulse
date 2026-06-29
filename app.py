@@ -524,8 +524,8 @@ def gpu_wrapped_execute_image(*args, **kwargs):
 
 
 # assets
-example_portrait_dir = "assets/examples/source"
-example_video_dir = "assets/examples/driving"
+example_portrait_dir = "assets/source"
+example_video_dir = "assets/driving"
 data_examples = [
     [osp.join(example_portrait_dir, "s9.jpg"), osp.join(example_video_dir, "d0.mp4"), True, True, True, False],
     [osp.join(example_portrait_dir, "s6.jpg"), osp.join(example_video_dir, "d0.mp4"), True, True, True, False],
