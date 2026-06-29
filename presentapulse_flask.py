@@ -93,5 +93,5 @@ if __name__ == '__main__':
         # Start Gradio app in background
         subprocess.Popen(['python', str(PRESENTAPULSE_APP)], cwd=str(PRESENTAPULSE_DIR))
     
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    app.run(debug=False, host='0.0.0.0', port=5001)
 
