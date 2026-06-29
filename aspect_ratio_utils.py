@@ -53,7 +53,7 @@ class AspectRatioProcessor:
             # Use custom dimensions
             return (custom_width, custom_height)
         
-        if aspect_ratio not in self.ASPECT_RATIOS:
+        if aspect_ratio not in self.ASPECT_RATIOS or (aspect_ratio == "custom" and not (custom_width and custom_height)):
             aspect_ratio = '1:1'  # Default to square
         
         target_aspect = self.ASPECT_RATIOS[aspect_ratio]
