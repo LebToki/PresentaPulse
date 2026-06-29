@@ -120,7 +120,11 @@ def get_video_info(video_path):
         if 'streams' in info and len(info['streams']) > 0:
             stream = info['streams'][0]
             fps_str = stream.get('r_frame_rate', '30/1')
-            fps = eval(fps_str) if '/' in fps_str else float(fps_str)
+            if '/' in fps_str:
+                num, den = fps_str.split('/', 1)
+                fps = float(num) / float(den) if float(den) != 0 else 0.0
+            else:
+                fps = float(fps_str)
             return {
                 'width': stream.get('width', 512),
                 'height': stream.get('height', 512),
