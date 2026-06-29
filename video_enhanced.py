@@ -359,6 +359,59 @@ def enhance_frame(frame_path, esrgan_script_path, esrgan_model_name, esrgan_mode
         return False
 
 
+
+def composite_multiple_videos(video_paths, output_path, progress_callback=None):
+    """Composite multiple videos side-by-side using ffmpeg."""
+    try:
+        if not video_paths:
+            return None
+
+        if len(video_paths) == 1:
+            if progress_callback:
+                progress_callback(1.0, "Only one video, copying...")
+            shutil.copy2(video_paths[0], output_path)
+            return output_path
+
+        if progress_callback:
+            progress_callback(0.5, f"Compositing {len(video_paths)} videos...")
+
+        # Build ffmpeg command
+        cmd = [FFMPEG_PATH, '-y']
+
+        # Add all inputs
+        for vp in video_paths:
+            cmd.extend(['-i', str(vp)])
+
+        # Create filter complex for hstack
+        filter_complex = ""
+        for i in range(len(video_paths)):
+            filter_complex += f"[{i}:v]"
+
+        filter_complex += f"hstack=inputs={len(video_paths)}[v]"
+
+        cmd.extend(['-filter_complex', filter_complex, '-map', '[v]'])
+
+        # Add audio if present in the first video (or we can just copy first audio)
+        cmd.extend(['-map', '0:a?', '-c:v', 'libx264', '-crf', '23', '-preset', 'medium', str(output_path)])
+
+        result = subprocess.run(cmd, capture_output=True, text=True, check=False)
+
+        if result.returncode != 0:
+            logging.error(f"FFmpeg composite failed: {result.stderr}")
+            # Fallback to first video if composite fails
+            shutil.copy2(video_paths[0], output_path)
+
+        if progress_callback:
+            progress_callback(1.0, "Video composition complete")
+
+        return output_path
+    except Exception as e:
+        logging.error(f"Error compositing videos: {e}")
+        if video_paths:
+            shutil.copy2(video_paths[0], output_path)
+        return output_path
+
+
 class VideoEnhancer:
     """Enhanced video enhancer with model selection and progress tracking."""
     

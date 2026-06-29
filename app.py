@@ -18,9 +18,10 @@ from src.gradio_pipeline import GradioPipeline
 from src.config.crop_config import CropConfig
 from src.config.argument_config import ArgumentConfig
 from src.config.inference_config import InferenceConfig
-from src.utils.video import has_audio_stream, exec_cmd, VideoEnhancer
+from src.utils.video import has_audio_stream, exec_cmd, VideoEnhancer, composite_multiple_videos
 try:
     from video_enhanced import (
+        composite_multiple_videos,
         VideoEnhancer as EnhancedVideoEnhancer, 
         get_video_info, 
         downscale_video, 
@@ -443,12 +444,23 @@ def gpu_wrapped_execute_video(image_path, video_path, relative_motion, do_crop, 
                     else:
                         results.append(result)
             
-            # For now, return the first result (TODO: composite multiple faces)
-            if results:
-                result = results[0]
-            else:
+            if not results:
                 result = gradio_pipeline.execute_video(image_path, video_path, relative_motion, 
                                                        do_crop, remap, crop_driving_video)
+            elif len(results) == 1:
+                result = results[0]
+            else:
+                if progress:
+                    progress(0.9, "Compositing multiple faces...")
+                # Composite multiple faces side-by-side
+                composite_output_path = live_portrait_output_dir / 'composite_faces.mp4'
+
+                # Check if composite_multiple_videos is available
+                try:
+                    result = composite_multiple_videos(results, str(composite_output_path))
+                except NameError:
+                    # Fallback if function import failed
+                    result = results[0]
         except Exception as e:
             logging.warning(f"Multi-face processing failed: {e}, falling back to single face")
             result = gradio_pipeline.execute_video(processed_image_path, video_path, relative_motion, 
