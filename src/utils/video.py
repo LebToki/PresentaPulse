@@ -13,7 +13,7 @@ if str(project_root) not in sys.path:
 
 # Import functions from video_enhanced.py
 try:
-    from video_enhanced import has_audio_stream, exec_cmd
+    from video_enhanced import has_audio_stream, exec_cmd, composite_multiple_videos
 except ImportError:
     # Fallback implementations if video_enhanced is not available
     import subprocess
@@ -28,6 +28,16 @@ except ImportError:
         return 'ffprobe'
     
     FFPROBE_PATH = find_ffprobe()
+
+    def composite_multiple_videos(video_paths, output_path, progress_callback=None):
+        import shutil
+        if not video_paths:
+            return None
+        if progress_callback:
+            progress_callback(1.0, "Compositing videos... (fallback just copying first)")
+        shutil.copy2(video_paths[0], output_path)
+        return output_path
+
     
     def exec_cmd(cmd, total_steps=None, desc="Processing"):
         """Execute command with progress tracking."""
