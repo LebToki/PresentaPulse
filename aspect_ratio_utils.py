@@ -49,11 +49,14 @@ class AspectRatioProcessor:
         Returns:
             Tuple of (target_width, target_height)
         """
-        if aspect_ratio == 'custom' and custom_width and custom_height:
-            # Use custom dimensions
-            return (custom_width, custom_height)
-        
-        if aspect_ratio not in self.ASPECT_RATIOS or (aspect_ratio == "custom" and not (custom_width and custom_height)):
+        if aspect_ratio == 'custom':
+            if custom_width and custom_height:
+                # Use custom dimensions
+                return (custom_width, custom_height)
+            else:
+                aspect_ratio = '1:1' # Default to square if custom dimensions missing
+
+        if aspect_ratio not in self.ASPECT_RATIOS:
             aspect_ratio = '1:1'  # Default to square
         
         target_aspect = self.ASPECT_RATIOS[aspect_ratio]
