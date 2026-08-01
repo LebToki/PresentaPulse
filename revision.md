@@ -1,4 +1,6 @@
 # Revision History
 
-## v1.0.2
-- Added comprehensive unit tests for `export_utils.py` handling of `find_ffmpeg`.
+## v1.1.0
+- Bumped minor version.
+- Created `revision.md` to track history.
+- Created `reader.md` for reader updates.

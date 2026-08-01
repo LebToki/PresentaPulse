@@ -1,2 +1,6 @@
 # Reader
-- Testing for `find_ffmpeg` has been added.
+
+Current version: 1.1.0
+
+Updates:
+- Initialized reader.md and revision.md.
