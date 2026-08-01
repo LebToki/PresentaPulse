@@ -55,7 +55,7 @@ class AspectRatioProcessor:
                 return (custom_width, custom_height)
             else:
                 aspect_ratio = '1:1' # Default to square if custom dimensions missing
-        
+
         if aspect_ratio not in self.ASPECT_RATIOS:
             aspect_ratio = '1:1'  # Default to square
         
