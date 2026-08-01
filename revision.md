@@ -1,6 +1,4 @@
 # Revision History
 
-## v1.1.0
-- Bumped minor version.
-- Created `revision.md` to track history.
-- Created `reader.md` for reader updates.
+## 1.0.2 - Security Fixes
+* Fixed Flask debug mode vulnerability in `presentapulse_flask.py` by changing `debug=True` to `debug=False`.
