@@ -219,22 +219,22 @@ class FaceDetector:
         
         return img
     
-    def crop_face(self, image_source: Union[str, np.ndarray], face: dict, padding: float = 0.2) -> np.ndarray:
+    def crop_face(self, image_input: Union[str, np.ndarray], face: dict, padding: float = 0.2) -> np.ndarray:
         """
         Crop face from image with padding.
         
         Args:
-            image_source: Path to image or image numpy array
+            image_input: Path to image or image array
             face: Face dictionary with bbox
             padding: Padding ratio (0.2 = 20% padding)
         
         Returns:
             Cropped face image
         """
-        if isinstance(image_source, (str, Path)):
-            img = cv2.imread(str(image_source))
+        if isinstance(image_input, (str, Path)):
+            img = cv2.imread(str(image_input))
         else:
-            img = image_source
+            img = image_input
 
         if img is None:
             return None

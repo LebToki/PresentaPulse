@@ -419,16 +419,19 @@ def gpu_wrapped_execute_video(image_path, video_path, relative_motion, do_crop, 
             selected_faces_list = [faces[int(idx.split()[1]) - 1] for idx in selected_face_indices 
                                  if idx.startswith("Face")]
             
+            # Load the image once to optimize repeated crops
             if CV2_AVAILABLE:
-                source_image = cv2.imread(image_path)
+                loaded_img = cv2.imread(str(image_path))
+            else:
+                loaded_img = image_path
 
             for idx, face in enumerate(selected_faces_list):
                 if progress:
                     progress(idx / len(selected_faces_list), f"Processing face {idx+1}/{len(selected_faces_list)}...")
                 
-                # Crop face from image
+                # Crop face from image using the pre-loaded image array
                 if CV2_AVAILABLE:
-                    cropped_face = detector.crop_face(source_image, face)
+                    cropped_face = detector.crop_face(loaded_img, face)
                     temp_face_path = live_portrait_output_dir / f'temp_face_{idx}.jpg'
                     cv2.imwrite(str(temp_face_path), cropped_face)
                     
@@ -983,7 +986,7 @@ custom_css = """
 theme = gr.themes.Soft(
     primary_hue="purple",
     secondary_hue="slate",
-    font=("Inter", "ui-sans-serif", "system-ui", "sans-serif"),
+    font=[gr.themes.GoogleFont("Inter"), "ui-sans-serif", "system-ui", "sans-serif"],
 ).set(
     body_background_fill="#0d1117",
     body_background_fill_dark="#0d1117",
@@ -1003,8 +1006,8 @@ theme = gr.themes.Soft(
     input_background_fill_dark="rgba(255, 255, 255, 0.03)",
     input_border_color="rgba(255, 255, 255, 0.08)",
     input_border_color_dark="rgba(255, 255, 255, 0.08)",
-    input_text_color="#e6edf3",
-    input_text_color_dark="#e6edf3",
+
+
     body_text_color="#e6edf3",
     body_text_color_dark="#e6edf3",
     block_label_text_color="#e6edf3",
@@ -1434,7 +1437,7 @@ with gr.Blocks(theme=theme, css=custom_css, title="PresentaPulse - LivePortrait 
                         file_types=["audio"],
                         label="Background Music File",
                         visible=False,
-                        info="Upload an audio file (MP3, WAV, etc.)"
+
                     )
                     
                     with gr.Row(visible=False) as music_settings_row:
