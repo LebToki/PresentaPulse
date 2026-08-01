@@ -9,6 +9,7 @@ from typing import List, Dict, Optional
 from datetime import datetime
 from dataclasses import dataclass, asdict
 import hashlib
+from collections import OrderedDict
 
 @dataclass
 class GenerationHistory:
@@ -42,7 +43,7 @@ class HistoryManager:
         self.history_dir.mkdir(parents=True, exist_ok=True)
         self.history_file = self.history_dir / 'history.json'
         self.max_entries = max_entries
-        self.history: List[GenerationHistory] = []
+        self.history: Dict[str, GenerationHistory] = OrderedDict()
         self.load_history()
     
     def load_history(self):
@@ -51,15 +52,16 @@ class HistoryManager:
             if self.history_file.exists():
                 with open(self.history_file, 'r') as f:
                     data = json.load(f)
-                    self.history = [GenerationHistory(**entry) for entry in data]
+                    entries = [GenerationHistory(**entry) for entry in data]
                     # Sort by timestamp (newest first)
-                    self.history.sort(key=lambda x: x.timestamp, reverse=True)
+                    entries.sort(key=lambda x: x.timestamp, reverse=True)
                     # Keep only max_entries
-                    if len(self.history) > self.max_entries:
-                        self.history = self.history[:self.max_entries]
+                    if len(entries) > self.max_entries:
+                        entries = entries[:self.max_entries]
+                    self.history = OrderedDict((entry.id, entry) for entry in entries)
         except Exception as e:
             logging.error(f"Failed to load history: {e}")
-            self.history = []
+            self.history = OrderedDict()
     
     def save_history(self):
         """Save history to file."""
@@ -67,12 +69,13 @@ class HistoryManager:
             # Keep only max_entries
             if len(self.history) > self.max_entries:
                 # Remove oldest entries
-                to_remove = self.history[self.max_entries:]
-                for entry in to_remove:
-                    self._cleanup_entry(entry)
-                self.history = self.history[:self.max_entries]
+                keys = list(self.history.keys())
+                to_remove_keys = keys[self.max_entries:]
+                for k in to_remove_keys:
+                    self._cleanup_entry(self.history[k])
+                    del self.history[k]
             
-            data = [entry.to_dict() for entry in self.history]
+            data = [entry.to_dict() for entry in self.history.values()]
             with open(self.history_file, 'w') as f:
                 json.dump(data, f, indent=2)
         except Exception as e:
@@ -104,34 +107,32 @@ class HistoryManager:
         )
         
         # Add to beginning (newest first)
-        self.history.insert(0, entry)
+        self.history[entry.id] = entry
+        self.history.move_to_end(entry.id, last=False)
         self.save_history()
         
         return entry_id
     
     def get_entry(self, entry_id: str) -> Optional[GenerationHistory]:
         """Get history entry by ID."""
-        for entry in self.history:
-            if entry.id == entry_id:
-                return entry
-        return None
+        return self.history.get(entry_id)
     
     def get_recent(self, limit: int = 10) -> List[GenerationHistory]:
         """Get recent history entries."""
-        return self.history[:limit]
+        return list(self.history.values())[:limit]
     
     def get_all(self) -> List[GenerationHistory]:
         """Get all history entries."""
-        return self.history
+        return list(self.history.values())
     
     def delete_entry(self, entry_id: str) -> bool:
         """Delete history entry."""
-        for i, entry in enumerate(self.history):
-            if entry.id == entry_id:
-                self._cleanup_entry(entry)
-                self.history.pop(i)
-                self.save_history()
-                return True
+        if entry_id in self.history:
+            entry = self.history[entry_id]
+            self._cleanup_entry(entry)
+            del self.history[entry_id]
+            self.save_history()
+            return True
         return False
     
     def _cleanup_entry(self, entry: GenerationHistory):
@@ -141,7 +142,7 @@ class HistoryManager:
     
     def clear_history(self):
         """Clear all history."""
-        self.history = []
+        self.history = OrderedDict()
         self.save_history()
     
     def create_thumbnail(self, video_path: str, output_path: str, frame_number: int = 1) -> bool:

@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 from pathlib import Path
 import logging
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, Union
 import json
 
 try:
@@ -219,19 +219,23 @@ class FaceDetector:
         
         return img
     
-    def crop_face(self, image_path: str, face: dict, padding: float = 0.2) -> np.ndarray:
+    def crop_face(self, image_source: Union[str, np.ndarray], face: dict, padding: float = 0.2) -> np.ndarray:
         """
         Crop face from image with padding.
         
         Args:
-            image_path: Path to image
+            image_source: Path to image or image numpy array
             face: Face dictionary with bbox
             padding: Padding ratio (0.2 = 20% padding)
         
         Returns:
             Cropped face image
         """
-        img = cv2.imread(str(image_path))
+        if isinstance(image_source, (str, Path)):
+            img = cv2.imread(str(image_source))
+        else:
+            img = image_source
+
         if img is None:
             return None
         
