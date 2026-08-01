@@ -390,7 +390,7 @@ GET /api/health
 {
   "status": "healthy",
   "timestamp": "2024-01-01T00:00:00",
-  "version": "1.0.0"
+  "version": "1.1.0"
 }
 ```
 
